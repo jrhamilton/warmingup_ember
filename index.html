@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href='http://courseware.codeschool.com/ember/' />
+  <link href='bootstrap.css' rel='stylesheet' />
+  <link href='application.css' rel='stylesheet' />
+  <script src="js/libs/jquery-1.10.2.js"></script>
+  <script src="js/libs/handlebars-1.1.2.js"></script>
+  <script src="js/libs/ember-1.4.0.js"></script>
+  <script src="http://builds.emberjs.com/tags/v1.0.0-beta.7/ember-data.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body>
+  <script type='text/x-handlebars' data-template-name='application'>
+    <div class='navbar navbar-default'>
+      <div class='container'>
+        {{#link-to 'index' class='navbar-brand'}}<img src='images/logo.png' alt='logo' height='34' width='224' />{{/link-to}}
+        <ul class='nav navbar-nav navbar-right'>
+          {{#link-to 'index' tagName='li'}}Home{{/link-to}}
+          {{#link-to 'about' tagName='li'}}About{{/link-to}}
+        </ul>
+      </div>
+    </div>
+    <div class='container'>
+      {{outlet}}
+    </div>
+    <footer class='container'>
+      <hr />
+      <p class='pull-left'>&copy; 2013 The Flint &amp; Flame</p>
+      <p class='pull-right'>{{#link-to 'credits'}}Credits{{/link-to}}</p>
+    </footer>
+  </script>
+
+  <script type='text/x-handlebars' data-template-name='index'>
+    <div class='jumbotron'>
+      <h1>Welcome to The Flint &amp; Flame!</h1>
+      <p class='tagline'>
+        <img {{bind-attr src='logo'}} alt='Logo' />
+        Everything you need to make it through the winter.
+      </p>
+      <p>Browse All {{productCount}} Items &raquo;</p>
+    </div>
+    <p class='pull-right text-muted'>Rendered on {{time}}</p>
+  </script>
+
+  <script type='text/x-handlebars' data-template-name='about'>
+    <div class='row'>
+      <img {{bind-attr src='avatar'}} alt='Avatar' class='img-thumbnail col-sm-4'/>
+      <div class='col-sm-8'>
+        <h1>About The Fire Spirits</h1>
+        <p>Contact {{contactName}} for more info!</p>
+        <p>Current Status: {{open}}.</p>
+      </div>
+    </div>
+  </script>
+
+  <script type='text/x-handlebars' data-template-name='credits'>
+    <h1>Thanks for the Help!</h1>
+    <p>This site would not be possible without the hardworking Ember Core Team!</p>
+  </script>
+
+  <script type='text/x-handlebars' data-template-name='products'>
+    <h1>Products</h1>
+    {{#each}}
+      <h2>{{title}}</h2>
+      <img {{bind-attr src='image'}} alt={{title}} />
+    {{/each}}
+  </script>
+
+  <script type='text/x-handlebars' data-template-name='contacts'>
+    <h1>Contacts</h1>
+    {{#each}}
+      <h2>{{name}}</h2>
+      <img {{bind-attr src='avatar'}} class='avatar' />
+      <p>{{about}}</p>
+    {{/each}}
+  </script>
+</body>
+</html>
