@@ -81,6 +81,15 @@
         <h2>{{title}}</h2>
         <h3 class='text-success'>${{price}}</h3>
         <p class='text-muted'>{{description}}</p>
+        <h3>Crafter: {{#link-to 'contact' crafter}}{{crafter.name}}{{/link-to}}</h3>
+        <h3>Reviews</h3>
+        <ul>
+        {{#each reviews}}
+          <li><p>{{text}}</p></li>
+        {{else}}
+          <li><p class='text-muted'><em>No reviews yet. Be the first to write one!</em></p></li>
+        {{/each}}
+        </ul>
       </div>
       <div class='col-sm-5'>
         <img {{bind-attr src='image'}} class='img-thumbnail img-rounded'/>
@@ -114,6 +123,12 @@
       <div class='col-sm-7'>
         <h2>{{name}}</h2>
         <p>{{about}}</p>
+        <h3>Products</h3>
+        <ul>
+        {{#each products}}
+          <li>{{#link-to 'product' this}}{{title}}{{/link-to}}</li>
+        {{/each}}
+        </ul>
       </div>
     </div>
   </script>
