@@ -16,7 +16,6 @@
         {{#link-to 'index' class='navbar-brand'}}<img src='images/logo.png' alt='logo' height='34' width='224' />{{/link-to}}
         <ul class='nav navbar-nav navbar-right'>
           {{#link-to 'index' tagName='li'}}Home{{/link-to}}
-          {{#link-to 'about' tagName='li'}}About{{/link-to}}
           {{#link-to 'products' tagName='li'}}Products{{/link-to}}
           {{#link-to 'contacts' tagName='li'}}Contacts{{/link-to}}
         </ul>
@@ -31,7 +30,6 @@
       <p class='pull-right'>{{#link-to 'credits'}}Credits{{/link-to}}</p>
     </footer>
   </script>
-
   <script type='text/x-handlebars' data-template-name='index'>
     <div class='jumbotron'>
       <h1>Welcome to The Flint &amp; Flame!</h1>
@@ -39,12 +37,15 @@
         <img {{bind-attr src='logo'}} alt='Logo' />
         Everything you need to make it through the winter.
       </p>
-      <p>Browse All {{productCount}} Items &raquo;</p>
+      <p>
+        {{#link-to 'products' class='btn btn-primary btn-lg'}}
+          Browse All {{productsCount}} Items &raquo;
+        {{/link-to}}
+      </p>
     </div>
     <p class='pull-right text-muted'>Rendered on {{time}}</p>
   </script>
-
-  <script type='text/x-handlebars' data-template-name='about'>
+  <script type='text/x-handlebars' data-template-name='contacts/index'>
     <div class='row'>
       <img {{bind-attr src='avatar'}} alt='Avatar' class='img-thumbnail col-sm-4'/>
       <div class='col-sm-8'>
@@ -54,12 +55,10 @@
       </div>
     </div>
   </script>
-
   <script type='text/x-handlebars' data-template-name='credits'>
     <h1>Thanks for the Help!</h1>
     <p>This site would not be possible without the hardworking Ember Core Team!</p>
   </script>
-
   <script type='text/x-handlebars' data-template-name='products'>
     <div class='row'>
       <div class='col-sm-3'>
@@ -76,29 +75,47 @@
       </div>
     </div>
   </script>
-
-  <script type='text/x-handlebars' data-template-name='contacts'>
-    <h1>Contacts</h1>
-    {{#each}}
-      <h2>{{#link-to 'contact' this}}{{name}}{{/link-to}}</h2>2>
-      <img {{bind-attr src='avatar' alt='name'}} class='img-thumbnail col-sm-5'/>
-      <p>{{about}}</p>
-    {{/each}}
-  </script>
-
-  <script type='text/x-handlebars' data-template-name='products/index'>
-  </script>
-
   <script type='text/x-handlebars' data-template-name='product'>
-    <h1>{{title}}</h1>
-    <img {{bind-attr src='image'}} alt={{title}} />
-    <p>Price: {{price}}</p>
+    <div class='row'>
+      <div class='col-sm-7'>
+        <h2>{{title}}</h2>
+        <h3 class='text-success'>${{price}}</h3>
+        <p class='text-muted'>{{description}}</p>
+      </div>
+      <div class='col-sm-5'>
+        <img {{bind-attr src='image'}} class='img-thumbnail img-rounded'/>
+      </div>
+    </div>
   </script>
-
+  <script type='text/x-handlebars' data-template-name='products/index'>
+    <p class='text-muted'>Choose a product from those on the left!</p>
+  </script>
+  <script type='text/x-handlebars' data-template-name='contacts'>
+    <div class='row'>
+      <div class='col-sm-9'>
+        {{outlet}}
+      </div>
+      <div class='col-sm-3'>
+        <div class='list-group'>
+          {{#each}}
+            {{#link-to 'contact' this classNames='list-group-item'}}
+              {{name}}
+            {{/link-to}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </script>
   <script type='text/x-handlebars' data-template-name='contact'>
-    <h1>{{name}}</h1>
-    <img {{bind-attr src='avatar' alt='name'}} />
-    <p>{{about}}</p>
+    <div class='row'>
+      <div class='col-sm-5'>
+        <img {{bind-attr src='avatar' alt='name'}} class='img-thumbnail img-rounded'/>
+      </div>
+      <div class='col-sm-7'>
+        <h2>{{name}}</h2>
+        <p>{{about}}</p>
+      </div>
+    </div>
   </script>
 </body>
 </html>
