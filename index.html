@@ -61,13 +61,20 @@
   </script>
 
   <script type='text/x-handlebars' data-template-name='products'>
-    <h1>Products</h1>
-    {{#each}}
-      {{#link-to 'product' this classNames='list-group-item'}}
-        <h2>{{title}}</h2>
-        <img {{bind-attr src='image'}} alt={{title}} />
-      {{/link-to}}
-    {{/each}}
+    <div class='row'>
+      <div class='col-sm-3'>
+        <div class='list-group'>
+          {{#each}}
+            {{#link-to 'product' this classNames='list-group-item'}}
+              {{title}}
+            {{/link-to}}
+          {{/each}}
+        </div>
+      </div>
+      <div class='col-sm-9'>
+        {{outlet}}
+      </div>
+    </div>
   </script>
 
   <script type='text/x-handlebars' data-template-name='contacts'>
@@ -77,6 +84,9 @@
       <img {{bind-attr src='avatar' alt='name'}} class='img-thumbnail col-sm-5'/>
       <p>{{about}}</p>
     {{/each}}
+  </script>
+
+  <script type='text/x-handlebars' data-template-name='products/index'>
   </script>
 
   <script type='text/x-handlebars' data-template-name='product'>
