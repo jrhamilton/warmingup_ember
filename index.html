@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <base href='http://courseware.codeschool.com/ember/' />
-  <link href='bootstrap.css' rel='stylesheet' />
-  <link href='application.css' rel='stylesheet' />
+  <link href='css/normalize.css' rel='stylesheet' />
+  <link href='css/style.css' rel='stylesheet' />
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars-1.1.2.js"></script>
   <script src="js/libs/ember-1.4.0.js"></script>
@@ -18,6 +17,8 @@
         <ul class='nav navbar-nav navbar-right'>
           {{#link-to 'index' tagName='li'}}Home{{/link-to}}
           {{#link-to 'about' tagName='li'}}About{{/link-to}}
+          {{#link-to 'products' tagName='li'}}Products{{/link-to}}
+          {{#link-to 'contacts' tagName='li'}}Contacts{{/link-to}}
         </ul>
       </div>
     </div>
@@ -62,18 +63,32 @@
   <script type='text/x-handlebars' data-template-name='products'>
     <h1>Products</h1>
     {{#each}}
-      <h2>{{title}}</h2>
-      <img {{bind-attr src='image'}} alt={{title}} />
+      {{#link-to 'product' this classNames='list-group-item'}}
+        <h2>{{title}}</h2>
+        <img {{bind-attr src='image'}} alt={{title}} />
+      {{/link-to}}
     {{/each}}
   </script>
 
   <script type='text/x-handlebars' data-template-name='contacts'>
     <h1>Contacts</h1>
     {{#each}}
-      <h2>{{name}}</h2>
-      <img {{bind-attr src='avatar'}} class='avatar' />
+      <h2>{{#link-to 'contact' this}}{{name}}{{/link-to}}</h2>2>
+      <img {{bind-attr src='avatar' alt='name'}} class='img-thumbnail col-sm-5'/>
       <p>{{about}}</p>
     {{/each}}
+  </script>
+
+  <script type='text/x-handlebars' data-template-name='product'>
+    <h1>{{title}}</h1>
+    <img {{bind-attr src='image'}} alt={{title}} />
+    <p>Price: {{price}}</p>
+  </script>
+
+  <script type='text/x-handlebars' data-template-name='contact'>
+    <h1>{{name}}</h1>
+    <img {{bind-attr src='avatar' alt='name'}} />
+    <p>{{about}}</p>
   </script>
 </body>
 </html>

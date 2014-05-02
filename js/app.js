@@ -8,10 +8,11 @@ App.Router.map(function() {
   this.resource('products');
   this.resource('contacts');
   this.resource('product', { path: '/products/:title' });
+  this.resource('contact', { path: '/contacts/:name'});
 });
 
 App.IndexController = Ember.Controller.extend({
-  productsCount: 6,
+  productCount: 6,
   logo: 'images/logo-small.png',
   time: function() {
     return (new Date()).toDateString();
@@ -26,7 +27,6 @@ App.AboutController = Ember.Controller.extend({
   }.property()
 });
 
-
 App.ProductsRoute = Ember.Route.extend({
   model: function() {
     return App.PRODUCTS;
@@ -35,7 +35,7 @@ App.ProductsRoute = Ember.Route.extend({
 
 App.ProductRoute = Ember.Route.extend({
   model: function(params) {
-    console.log(params);
+    return App.PRODUCTS.findBy('title', params.title)
   }
 })
 
@@ -44,6 +44,12 @@ App.ContactsRoute = Ember.Route.extend({
     return App.CONTACTS;
   }
 });
+
+App.ContactRoute = Ember.Route.extend({
+  model: function(params) {
+    return app.CONTACTS.findBy('name', params.name)
+  }
+})
 
 
 App.PRODUCTS = [
