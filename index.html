@@ -3,6 +3,7 @@
 <head>
   <link href='css/normalize.css' rel='stylesheet' />
   <link href='css/style.css' rel='stylesheet' />
+  <link href='css/application.css' rel='stylesheet' />
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars-1.1.2.js"></script>
   <script src="js/libs/ember-1.4.0.js"></script>
@@ -88,7 +89,7 @@
       </div>
     </div>
   </script>
-  <script type='text/x-handlebars' data-template-name='products/index'>   
+  <script type='text/x-handlebars' data-template-name='products/index'>
   <h1>Todays Product Deals!</h1>
   <ul>
     {{#each deals}}
@@ -107,7 +108,7 @@
         <h3 class="text-success">${{price}}</h3>
         <p class="text-muted">{{description}}</p>
         <p>Finely crafted by {{#link-to 'contact' crafter}}{{crafter.name}}{{/link-to}}.</p>
-        
+
         <h3>Reviews</h3>
         <ul>
         {{#each reviews}}
