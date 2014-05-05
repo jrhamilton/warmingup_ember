@@ -5,6 +5,8 @@ App.Router.map(function() {
   this.route('credits', { path: '/thanks' });
   this.resource('products', function() {
     this.resource('product', { path: '/:product_id' });
+    this.route('onsale');
+    this.route('deals');
   });
   this.resource('contacts', function() {
     this.resource('contact', { path: '/:contact_id' });
@@ -31,24 +33,12 @@ App.ContactsIndexController = Ember.Controller.extend({
 App.ProductsController = Ember.ArrayController.extend({
   sortProperties: ['title']
 });
-App.ProductsIndexController = Ember.ArrayController.extend({
-  deals: function() {
-    return this.filter(function(product) {
-      return product.get('price') < 500;
-    });
-  }.property('@each.price')
-});
 App.ContactsController = Ember.ArrayController.extend({
   sortProperties: ['name'],
   contactsCount: Ember.computed.alias('length')
 });
 
 App.ProductsRoute = Ember.Route.extend({
-  model: function() {
-    return this.store.findAll('product');
-  }
-});
-App.ProductsIndexRoute = Ember.Route.extend({
   model: function() {
     return this.store.findAll('product');
   }
@@ -61,6 +51,23 @@ App.ContactsRoute = Ember.Route.extend({
 App.IndexRoute = Ember.Route.extend({
   model: function(){
     return this.store.findAll('product');
+  }
+});
+App.ProductsIndexRoute = Ember.Route.extend({
+  model: function(){
+    return this.store.findAll('product');
+  }
+});
+App.ProductsOnsaleRoute = Ember.Route.extend({
+  model: function(){
+    return this.modelFor('products').filterBy('isOnSale');
+  }
+});
+App.ProductsDealsRoute = Ember.Route.extend({
+  model: function() {
+    return this.modelFor('products').filter(function(product) {
+      return product.get('price') < 500;
+    });
   }
 });
 
@@ -167,12 +174,11 @@ App.Review = DS.Model.extend({
 });
 App.Review.FIXTURES = [
   {
-    id: 100, 
+    id: 100,
     text: "Started a fire in no time!"
   },
   {
-    id: 101, 
+    id: 101,
     text: "Not the brightest flame, but warm!"
   }
 ];
-
