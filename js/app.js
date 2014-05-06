@@ -97,6 +97,17 @@ App.ProductsDealsRoute = Ember.Route.extend({
   }
 });
 
+App.ReviewView = Ember.View.extend({
+  isExpanded: false,
+  classNameBindings: ['isExpanded', 'readMore'],
+  click: function(){
+    this.toggleProperty('isExpanded');
+  },
+  readMore: function(){
+    return this.get('length') > 140;
+  }.property('length')
+});
+
 App.ProductDetailsComponent = Ember.Component.extend({
  reviewsCount: Ember.computed.alias('product.reviews.length'),
   hasReviews: function(){
@@ -113,14 +124,6 @@ App.ContactDetailsComponent = Ember.Component.extend({
 App.ProductView = Ember.View.extend({
   isOnSale: Ember.computed.alias('controller.isOnSale'),
   classNameBindings: ['isOnSale']
-});
-App.ReviewView = Ember.View.extend({
-  isExpanded: false,
-  classNameBindings: ['isExpanded', 'readMore'],
-  click: function() {
-    this.toggleProperty('isExpanded');
-  },
-  readMore: Ember.computed.gt('length', 140)
 });
 
 App.ApplicationAdapter = DS.FixtureAdapter.extend();
@@ -140,6 +143,13 @@ App.Product = DS.Model.extend({
   }.property('reviews.@each.rating')
 });
 
+Ember.Handlebars.registerBoundHelper('markdown', function(text) {
+  return new Handlebars.SafeString(markdown.toHTML(text));
+});
+Ember.Handlebars.registerBoundHelper('money', function(value) {
+  return accounting.formatMoney(value/100);
+});
+
 App.Product.FIXTURES = [
  {  id: 1,
     title: 'Flint',
@@ -147,7 +157,7 @@ App.Product.FIXTURES = [
     description: 'Flint is a hard, sedimentary cryptocrystalline form of the mineral quartz, categorized as a variety of chert.',
     isOnSale: true,
     image: 'images/products/flint.png',
-    reviews: [100,101,102],
+    reviews: [100,101],
     crafter: 200
   },
   {
