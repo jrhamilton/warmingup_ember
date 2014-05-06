@@ -33,6 +33,24 @@ App.ContactsIndexController = Ember.Controller.extend({
 App.ProductsController = Ember.ArrayController.extend({
   sortProperties: ['title']
 });
+App.ProductController = Ember.ObjectController.extend({
+  text: '',
+  actions: {
+    createReview: function() {
+      var review = this.store.createRecord('review', {
+        text: this.get('text'),
+        product: this.get('model'),
+        reviewedAt: new Date()
+      });
+      var controller = this;
+
+      review.save().then(function(review) {
+        controller.set('text', '');
+        controller.get('model.reviews').addObject(review);
+      })
+    }
+  }
+});
 App.ContactsController = Ember.ArrayController.extend({
   sortProperties: ['name'],
   contactsCount: Ember.computed.alias('length')
@@ -199,11 +217,11 @@ App.Review = DS.Model.extend({
 });
 App.Review.FIXTURES = [
   {
-    id: 100, 
+    id: 100,
     text: "Started a fire in no time!"
   },
   {
-    id: 101, 
+    id: 101,
     text: "Not the brightest flame, but warm!"
   }
 ];
